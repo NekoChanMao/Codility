@@ -1,0 +1,40 @@
+/*
+The very first - but surely not the easiest.
+The main thing is to use %2 to check if the last digit in a number is 0 or 1 and then to use /2 to move up the digits of the number.
+Then it's just about careful implementation of the counters. 
+In the first attempt I zerroed the currentGap in the condition (currentGap > longestGap) (line 26 was under line 24) 
+- this bug was not picked up by the initial tests and only came up after task submission. 
+*/
+
+class Solution {
+    public int solution(int N) {
+        // write your code in Java SE 8
+
+        int longestGap = 0;
+        int currentGap = 0;
+        boolean gapStarted = false;
+        int n = N;
+        while(n > 0)
+        {
+            if(n%2 == 1)
+            {
+                gapStarted = true;
+                if(currentGap > longestGap)
+                {
+                    longestGap = currentGap;
+                }
+                currentGap = 0;
+            }
+            else if(gapStarted)
+            {
+                ++currentGap;
+            }
+
+            n = n/2;
+        }
+
+
+        return longestGap;
+
+    }
+}
