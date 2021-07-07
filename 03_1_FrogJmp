@@ -1,5 +1,6 @@
 /*
 Quick one-liner (leaving a few lines for readability).
+Time complexity: constant. 
 */
 
 class Solution {
