@@ -1,0 +1,19 @@
+/*
+Linear complexity: we add up all numbers for an array with no missing element and subtract element of the given array to be left with value of the missing element.
+*/
+
+class Solution {
+    public int solution(int[] A) {
+
+        int elementOfFullArray = 1;        
+        int result = elementOfFullArray;
+
+        for(int a: A)
+        {   
+            ++elementOfFullArray;
+            result += elementOfFullArray;
+            result -= a;
+        }
+        return result;
+    }
+}
