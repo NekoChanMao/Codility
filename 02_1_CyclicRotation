@@ -1,0 +1,26 @@
+/*
+The rotation is strightforward array manipulation and the task expects you to check for boundary situations like empty array, K>N. 
+*/
+
+class Solution {
+    public int[] solution(int[] A, int K) {
+        // write your code in Java SE 8
+
+        if(A.length < 2)
+        {
+            return A;
+        }
+
+        int rot = K % A.length;
+        if(rot == 0)
+        {
+            return A;
+        }
+        
+        int [] resultA = new int[A.length]; 
+        System.arraycopy(A, A.length - rot, resultA, 0, rot);
+        System.arraycopy(A, 0, resultA, rot, A.length - rot);
+
+        return resultA;
+    }
+}
