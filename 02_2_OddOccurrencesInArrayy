@@ -1,0 +1,14 @@
+/*
+It is possible to solve this task alos without the XOR trick (my first attempt).
+*/
+class Solution {
+    public int solution(int[] A) {
+        // write your code in Java SE 8
+        int result = 0;
+        for(int a: A)
+        {
+            result ^= a;
+        }
+        return result;
+    }
+}
