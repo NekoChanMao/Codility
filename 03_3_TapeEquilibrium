@@ -1,0 +1,30 @@
+/*
+ Here it's important to be careful about the signs (negative integers are allowed) 
+ and not to go too far moving the partition (at least one element must stay on each side). 
+*/
+
+class Solution{
+    public int solution(int []A){
+
+        if(A.length < 2) {
+            return 0;
+        }
+        int sumA = 0;
+        for(int a :A)        {
+              sumA += a;
+        }
+        int firstPart = A[0];
+        int secondPart = sumA - A[0];
+        int smallestDifference = Math.abs(firstPart - secondPart);
+
+        for(int i = 1; i < A.length-1; ++i){
+            firstPart += A[i];
+            secondPart -= A[i];
+            if(Math.abs(firstPart - secondPart) < smallestDifference){
+                smallestDifference = Math.abs(firstPart - secondPart);
+            }
+        }
+        
+        return smallestDifference;
+    }
+}
