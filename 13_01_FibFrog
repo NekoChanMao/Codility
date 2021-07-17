@@ -1,0 +1,57 @@
+// Breadth first search 
+// Important to remove leaves which the frog has reached for performance
+
+import java.util.*;
+
+class Solution {
+
+    class CurrentState{
+        int position;
+        int noSteps;
+
+        public CurrentState(int position, int noSteps) {
+            this.position = position;
+            this.noSteps = noSteps;
+        }
+    }
+
+    private ArrayList<Integer> fibNumbers= new ArrayList();
+
+    private void fillFib(int size){
+        fibNumbers.add(0, 1);
+        fibNumbers.add(1, 2);
+        int index = 2;
+        while(fibNumbers.get(index-1) <= size){
+            fibNumbers.add(index, fibNumbers.get(index-1) + fibNumbers.get(index-2));
+            ++index;
+        }
+        Collections.reverse(fibNumbers);
+    }
+
+    public int solution(int[] A){
+
+        fillFib(A.length);
+        Queue<CurrentState> possibleSteps = new LinkedList<>();
+        possibleSteps.add(new CurrentState(-1, 1));
+
+        while( ! possibleSteps.isEmpty()){
+            CurrentState currentState = possibleSteps.poll();
+            for(int fn: fibNumbers){
+                // too long jump
+                if(fn + currentState.position > A.length){
+                    continue;
+                }
+                //other side of the lake reached
+                if(fn + currentState.position == A.length){
+                    return currentState.noSteps;
+                }
+                //jump to a leaf 
+                if(A[currentState.position + fn] == 1){
+                    possibleSteps.add(new CurrentState(currentState.position + fn, currentState.noSteps+1));
+                    A[currentState.position+fn] = 0; // no point reaching the same leaf in more jumps
+                }
+            }
+        }
+        return -1;
+    }
+}
