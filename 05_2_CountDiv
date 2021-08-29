@@ -1,0 +1,13 @@
+class Solution {
+    public int solution(int A, int B, int K) {
+
+        int a = A, b = B;
+        while((a % K) != 0){
+            a++;
+        }
+        while((b % K) != 0){
+            b++;
+        }
+        return (b-a)/K;
+    }
+}
