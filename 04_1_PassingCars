@@ -1,0 +1,17 @@
+class Solution {
+    public int solution(int[] A) {
+        int passingNo = 0; 
+        int readyToPass = 0;
+        for(int i = 0; i < A.length; ++i){
+            if(A[i] == 0){
+                ++readyToPass;
+            }else{
+                passingNo += readyToPass;
+                if(passingNo > 1000000000){
+                    return -1;
+                }
+            }
+        }
+        return passingNo;
+    }
+}
