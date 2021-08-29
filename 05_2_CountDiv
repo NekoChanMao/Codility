@@ -8,6 +8,10 @@ class Solution {
         while((b % K) != 0){
             b++;
         }
-        return (b-a)/K;
+        int result = (b-a)/K;
+        if((B % K) == 0){
+            ++result;
+        }
+        return result;
     }
 }
