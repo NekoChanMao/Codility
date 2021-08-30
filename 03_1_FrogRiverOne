@@ -1,0 +1,17 @@
+class Solution {
+    public int solution(int X, int[] A) {
+        boolean[] leaves = new boolean[X+1];
+        int foundLeavesNo = 0;
+        for(int i = 0; i < A.length; ++i){
+            if(leaves[A[i]] != true){
+                ++foundLeavesNo;
+                if(foundLeavesNo == X){
+                    return i;
+                }
+                leaves[A[i]] = true;
+            }
+        }
+
+        return -1;
+    }
+}
