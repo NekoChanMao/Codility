@@ -1,23 +1,20 @@
-// !! 50%
-
 class Solution {
     public int solution(int[] A) {
-        // write your code in Java SE 8
         int positionOfMinAvgSlice = 0;
         double minAvgSlice = (A[0]+A[1])/2;
 
         // Check pairs
         for(int i = 0; i < A.length-1; ++i){
-            if(minAvgSlice > (A[i]+A[i+1])/2){
-                minAvgSlice = (A[i]+A[i+1])/2;
+            if(minAvgSlice > (A[i]+A[i+1])/2.0){  // Remember about .0 in the divisor, so the result is a double
+                minAvgSlice = (A[i]+A[i+1])/2.0;
                 positionOfMinAvgSlice = i;
             }
         }
 
         // Check triplets
         for(int i = 0; i < A.length-2; ++i){
-            if(minAvgSlice > (A[i]+A[i+1]+A[i+2])/3){
-                minAvgSlice = (A[i]+A[i+1]+A[i+2])/3;
+            if(minAvgSlice > (A[i]+A[i+1]+A[i+2])/3.0){
+                minAvgSlice = (A[i]+A[i+1]+A[i+2])/3.0;
                 positionOfMinAvgSlice = i;
             }
         }
