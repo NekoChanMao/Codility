@@ -1,0 +1,13 @@
+// After sorting the biggest product will be of the three biggest numbers
+// or two smallest (if they are negative) and the biggest positive
+import java.util.*;
+
+class Solution {
+    public int solution(int[] A) {
+        Arrays.sort(A);
+        int Asize = A.length;
+        return  ((A[Asize-1]*A[Asize-2]*A[Asize-3]) > (A[0]*A[1]*A[Asize-1])) ? 
+             (A[Asize-1]*A[Asize-2]*A[Asize-3])
+            :(A[0]*A[1]*A[Asize-1]);
+    }
+}
