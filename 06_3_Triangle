@@ -1,0 +1,24 @@
+// On the initial trial I got one wrong answer because of an overflow. 
+// After that I've added check for negative numbers and changed the crucial check to A[i] > (A[i+2] - A[i+1]).
+
+import java.util.*;
+
+class Solution {
+    public int solution(int[] A) {
+        if(A.length < 3){
+            return 0;
+        }
+        Arrays.sort(A);
+        int start_i = (A[0] > 0) ? 0 : 1;
+        start_i = (A[1] > 0) ? start_i : 2;
+        for(int i = start_i; i < A.length-2; ++i){
+            if(A[i+2] <= 0){
+                continue;
+            }
+            if(A[i] > (A[i+2] - A[i+1])){
+                return 1;
+            }
+        }
+        return 0;
+    }
+}
