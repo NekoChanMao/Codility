@@ -1,0 +1,11 @@
+import java.util.*;
+
+class Solution {
+    public int solution(int[] A) {
+        HashSet<Integer> setA = new HashSet<>();
+        for(int a: A){
+            setA.add(a);
+        }
+        return setA.size();
+    }
+}
