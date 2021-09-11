@@ -2,26 +2,21 @@ import java.util.*;
 
 class Solution {
     public int solution(String S) {
-        Stack<Integer> parantheses = new Stack<>();
+        int parantheses = 0;
         char[] input = S.toCharArray();
         for(char c: input){
             if(c == '('){
-                parantheses.add(c);
+                ++parantheses;
             }else if(c == ')'){
-                if(parantheses.isEmpty()){
+                if(parantheses <= 0){
                     return 0;
                 }
                 else{
-                    parantheses.pop();
+                    --parantheses;
                 }
             }
         }
 
-        if(parantheses.isEmpty()){
-            return 1;
-        }else{
-            return 0;
+        return (parantheses == 0) ? 1 : 0;
         }  
-
-    }
 }
