@@ -1,0 +1,25 @@
+import java.util.*;
+
+class Solution {
+    public int solution(int[] A, int[] B) {
+        int N = A.length;
+        int survivingFish = N;
+        Stack<Integer> upstreamFish = new Stack<>();
+        for(int i = 0; i < N; ++i){
+            if(B[i] == 0){
+                while( ! upstreamFish.isEmpty()){
+                    --survivingFish;
+                    if(A[i] > upstreamFish.peek()){
+                        upstreamFish.pop();
+                    }else{
+                        break;
+                    }
+                }
+            }
+            else{
+                upstreamFish.add(A[i]);
+            }
+        }
+        return survivingFish;
+    }
+}
