@@ -1,0 +1,27 @@
+import java.util.*;
+
+class Solution {
+    public int solution(String S) {
+        Stack<Integer> parantheses = new Stack<>();
+        char[] input = S.toCharArray();
+        for(char c: input){
+            if(c == '('){
+                parantheses.add(c);
+            }else if(c == ')'){
+                if(parantheses.isEmpty()){
+                    return 0;
+                }
+                else{
+                    parantheses.pop();
+                }
+            }
+        }
+
+        if(parantheses.isEmpty()){
+            return 1;
+        }else{
+            return 0;
+        }  
+
+    }
+}
