@@ -1,0 +1,23 @@
+class Solution {
+    public int solution(int[] A) {
+        if(A.length < 2){
+            return 0;
+        }
+
+        int minShareValue = A[0];
+        int maxProfit = 0;
+
+        for(int i = 1; i < A.length; ++i){
+            if(A[i] < minShareValue){
+                minShareValue = A[i];
+            }else{
+                int currentProfit = A[i] - minShareValue;
+                if(currentProfit > maxProfit){
+                    maxProfit = currentProfit;
+                }
+            }
+        }
+
+        return maxProfit;
+    }
+}
