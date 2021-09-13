@@ -1,0 +1,13 @@
+import java.lang.Math.*;
+
+class Solution {
+    public int solution(int[] A) {
+        int maxSlice = A[0];
+        int currentMaxSlice = A[0];
+        for(int i = 1; i < A.length; ++i){
+            currentMaxSlice = Math.max(currentMaxSlice + A[i], A[i]);
+            maxSlice = Math.max(maxSlice, currentMaxSlice);
+        }
+        return maxSlice;
+    }
+}
