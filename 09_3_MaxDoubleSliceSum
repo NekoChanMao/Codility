@@ -1,0 +1,21 @@
+class Solution {
+    public int solution(int[] A) {
+        int maxDoubleSum = 0;
+        int N = A.length;
+        int[] firstSlice = new int[N];
+        int[] secondSlice = new int[N];
+        
+        // Store information about the maximum value up to an i-th point (first Slice)
+        // and information about max value from the i-th point (secondSlice) 
+        for(int i = 1; i < N-1; ++i){
+            firstSlice[i] = Math.max(0, firstSlice[i-1] + A[i]);
+            secondSlice[N-i-1] = Math.max(0, secondSlice[N-i] + A[N-i-1]);
+        }
+        //For each array entry check what's the sum of slices before this point and just after
+        for(int i = 1; i < N-1; ++i){
+            maxDoubleSum = Math.max(maxDoubleSum, firstSlice[i-1]+secondSlice[i+1]);
+        }
+
+        return maxDoubleSum;
+    }
+}
