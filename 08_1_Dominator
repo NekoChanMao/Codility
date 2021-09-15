@@ -1,0 +1,35 @@
+import java.util.*;
+
+class Solution {
+    public int solution(int[] A) {
+        int dominatorIndex = -1;
+        Stack<Integer> reductionStack = new Stack<>();
+        
+// Removing two different elements from the array does not change the dominator
+// So we iterate through it removing all couples of differnt elements 
+        for(int a: A){
+            if(reductionStack.empty()){
+                reductionStack.add(a);
+            }else if(reductionStack.peek() != a){
+                reductionStack.pop();
+            }else{
+                reductionStack.add(a);
+            }
+        }
+//If dominator exist the stack must be non empty, we also need to check that the         
+        if( ! reductionStack.empty()){
+            int indexCandidate = -1;
+            int counter = 0;
+            for(int i = 0; i < A.length; ++i){
+                if(reductionStack.peek() == A[i]){
+                    indexCandidate = i;
+                    ++counter;
+                }
+            }
+            if(counter > A.length/2){
+                dominatorIndex = indexCandidate;
+            }
+        }
+        return dominatorIndex;
+    }
+}
