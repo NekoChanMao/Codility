@@ -1,0 +1,79 @@
+package Codility;
+import java.util.*;
+
+class Solution {
+    public int solution(int[] A) {
+
+        Stack<Integer> reductionStack = new Stack<>();
+        int[] firstSequence = new int[A.length];
+        int[] secondSequence = new int[A.length];
+        for(int i = 0; i < A.length; ++i){
+            firstSequence[i] = Integer.MIN_VALUE;
+            secondSequence[i] = Integer.MIN_VALUE;
+        }
+
+        for(int i = 0; i < A.length; ++i){
+            if(reductionStack.empty()){
+                reductionStack.add(A[i]);
+                firstSequence[i] = A[i];
+            }else if(reductionStack.peek() != A[i]){
+                reductionStack.pop();
+                if(! reductionStack.empty()){
+                    firstSequence[i] = reductionStack.peek();
+                }
+            }else{
+                reductionStack.add(A[i]);
+                firstSequence[i] = A[i];
+            }
+        }
+        int leaderValue = Integer.MIN_VALUE;
+        if(reductionStack.empty()){
+            return 0;
+        }else{
+            leaderValue = reductionStack.pop();
+        }
+        reductionStack.removeAllElements();
+
+        for(int i = A.length-1; i >= 0 ; --i){
+            if(reductionStack.empty()){
+                reductionStack.add(A[i]);
+                secondSequence[i] = A[i];
+            }else if(reductionStack.peek() != A[i]){
+                reductionStack.pop();
+                if(! reductionStack.empty()){
+                    secondSequence[i] = reductionStack.peek();
+                }
+            }else{
+                reductionStack.add(A[i]);
+                secondSequence[i] = A[i];
+            }
+        }
+        int count = 0;
+        for(int i = 0; i < A.length; ++i){
+            if(A[i] == leaderValue){
+                ++count;
+            }
+            if(count <= (i+1)/2){
+                firstSequence[i] = Integer.MIN_VALUE;
+            }
+        }
+        count = 0;
+        for(int i = A.length-1; i >= 0; --i){
+            if(A[i] == leaderValue){
+                ++count;
+            }
+            if(count <= (A.length-i)/2){
+                secondSequence[i] = Integer.MIN_VALUE;
+            }
+        }
+        count = 0;
+        for(int i = 0; i < A.length-1; ++i){
+            if(firstSequence[i] != Integer.MIN_VALUE
+                    && firstSequence[i] == secondSequence[i+1]){
+                ++count;
+            }
+        }
+
+        return count;
+    }
+}
