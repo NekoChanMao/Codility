@@ -1,0 +1,18 @@
+class Solution {
+    public int solution(int N) {
+        int minPerimeter = 0;
+        int n = (int)(Math.sqrt(N));
+        if(n*n == N){
+            minPerimeter = 4*n;
+        }else{
+            while(n >= 1){
+                if( N%n == 0){
+                    minPerimeter = 2*(N/n+n);
+                    break;
+                }
+                --n;
+            }
+        }
+        return minPerimeter;
+    }
+}
