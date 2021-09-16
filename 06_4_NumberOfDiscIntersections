@@ -1,0 +1,39 @@
+package Codility;
+
+import java.util.*;
+
+class Solution {
+    static final int TEN_MILLIONS = 10_000_000;
+
+    public int solution(int[] A) {
+        int N = A.length;
+        long[] circleStarts = new long[N];
+        long[] circleEnds = new long[N];
+
+        for(int i = 0; i < N; ++i){
+            circleStarts[i] = i - (long)A[i]; // must be cast to long to avoid overflow error
+            circleEnds[i] = i + (long)A[i];
+        }
+        Arrays.sort(circleStarts);
+        Arrays.sort(circleEnds);
+
+        int noOpenedCircles = 0;
+        long noIntersections = 0;
+        int cei = 0;
+        for(long cs : circleStarts){
+            while(cei < N && circleEnds[cei] < cs){
+                noIntersections += noOpenedCircles - 1;
+                --noOpenedCircles;
+                ++cei;
+            }
+            ++noOpenedCircles;
+        }
+        while(cei < N ){
+            noIntersections += noOpenedCircles - 1;
+            --noOpenedCircles;
+            ++cei;
+        }
+
+        return (noIntersections > TEN_MILLIONS) ? -1: (int)noIntersections;
+    }
+}
