@@ -1,0 +1,16 @@
+class Solution {
+    public int solution(int N) {
+        int result = 0;
+        int n = 1;
+        while( n < Math.sqrt(N) ){
+            if(N%n == 0){
+                result += 2;
+            }
+            ++n;
+        }
+        if(N == n*n){
+            ++result;
+        }
+        return result;
+    }
+}
