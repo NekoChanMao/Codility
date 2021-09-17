@@ -1,0 +1,60 @@
+class Solution {
+    final static int A_IMPACT_FACTOR = 1;
+    final static int C_IMPACT_FACTOR = 2;
+    final static int G_IMPACT_FACTOR = 3;
+    final static int T_IMPACT_FACTOR = 4;
+
+    public int[] solution(String S, int[] P, int[] Q) {
+        // Create arrays of prefix sum - for every letter
+        int[] Atype = new int[S.length()+1];
+        int[] Ctype = new int[S.length()+1];
+        int[] Gtype = new int[S.length()+1];
+        int[] Ttype = new int[S.length()+1];
+        int i = 1;
+        for(char c: S.toCharArray()){
+            switch(c){
+                case 'A':
+                    Atype[i] = Atype[i-1] + 1;
+                    Ctype[i] = Ctype[i-1];
+                    Gtype[i] = Gtype[i-1];
+                    Ttype[i] = Ttype[i-1];
+                    break;
+                case 'C':
+                    Ctype[i] = Ctype[i-1] + 1;
+                    Atype[i] = Atype[i-1];
+                    Gtype[i] = Gtype[i-1];
+                    Ttype[i] = Ttype[i-1];
+                    break;
+                case 'G':
+                    Gtype[i] = Gtype[i-1] + 1;
+                    Atype[i] = Atype[i-1];
+                    Ctype[i] = Ctype[i-1];
+                    Ttype[i] = Ttype[i-1];
+                    break;
+                case 'T':
+                    Ttype[i] = Ttype[i-1] + 1;
+                    Atype[i] = Atype[i-1];
+                    Ctype[i] = Ctype[i-1];
+                    Gtype[i] = Gtype[i-1];
+                    break;
+            }
+            ++i;
+        }
+
+        int[] result = new int[P.length];
+        
+        //If the sum increased between spots P and Q it means the letter is present in the range
+        for(int j = 0; j < P.length; ++j){
+            if(Atype[P[j]] < Atype[Q[j]+1]){
+                result[j] = A_IMPACT_FACTOR;
+            }else if(Ctype[P[j]] < Ctype[Q[j]+1]){
+                result[j] = C_IMPACT_FACTOR;
+            }else if(Gtype[P[j]] < Gtype[Q[j]+1]){
+                result[j] = G_IMPACT_FACTOR;
+            }else{
+                result[j] = T_IMPACT_FACTOR;
+            }
+        }
+        return result;
+    }
+}
