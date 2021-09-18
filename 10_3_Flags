@@ -1,0 +1,39 @@
+
+
+class Solution {
+    public int solution(int[] A) {
+
+        int N = A.length;
+        // Find peaks
+        boolean[] peaks = new boolean[A.length];
+        int noPeaks = 0;
+        peaks[0] = false;
+        peaks[N-1] = false;
+        for(int i = 1; i < N-1; ++i){
+            if(A[i] > A[i-1] && A[i] > A[i+1]){
+                peaks[i] = true;
+                ++noPeaks;
+            }else{
+                peaks[i] = false;
+            }
+        }
+        // No of flags cannot be greater than ((sqrt of N) + 1)
+        // and cannot be greater than no of peaks
+        int K = Math.min((int)(Math.sqrt(N)+1), noPeaks);
+        while( K >= 1){
+            int currentK = K;
+            for(int i = 0; i < N; ++i){
+                if(peaks[i] == true){
+                    currentK--;
+                    if(currentK == 0){ // check if we were able to place all K flags
+                        return K; 
+                    }
+                    i += K-1; //jump by K, -1 as one will be added by the loop
+                }
+            }
+            --K;
+        }
+        return 0;
+    }
+}
+
