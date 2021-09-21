@@ -1,0 +1,59 @@
+import java.util.Collections;
+import java.util.LinkedList;
+
+class Solution {
+    public int solution(int[] A) {
+
+        int N = A.length;
+        boolean[] peaks = new boolean[N];
+        int noPeaks = 0;
+        for(int i = 1; i < N-1; ++i){
+            if(A[i-1] < A[i] && A[i+1] < A[i]){
+                peaks[i] = true;
+                ++noPeaks;
+            }
+        }
+
+        LinkedList<Integer> dividors = new LinkedList<>();
+        int n = 1;
+        while( n <= Math.sqrt(N) ){
+            if( N%n == 0 ){
+                dividors.add(n);
+                if(n != N/n) {
+                    dividors.add(N / n);
+                }
+            }
+            ++n;
+        }
+        Collections.sort(dividors);
+
+        // Possible number of elements in a block. We start from the smallest possible
+        for(Integer elements: dividors){
+            int noBlocks = N/elements;
+            // We only can succeed if there's at least one peak per block
+            if(noBlocks <= noPeaks){
+                //int nb = noBlocks;
+                boolean currentBlockHasPeak = false;
+                for(int i = 0; i < N; ++i){
+                    if(peaks[i] == true){
+                        currentBlockHasPeak = true;
+                    }
+                    //end of block
+                    if((i+1)%elements == 0) {
+                        if (currentBlockHasPeak != true) {
+                            break;
+                        } else {
+                            if ((i+1) == N) {
+                                return noBlocks;
+                            }
+                            currentBlockHasPeak = false;
+                        }
+                    }
+                }
+
+            }
+        }
+    //Impossible to divide array into some number of blocks
+        return 0;
+    }
+}
