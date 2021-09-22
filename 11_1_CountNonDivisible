@@ -1,0 +1,41 @@
+import java.util.*;
+
+class Solution {
+    public int[] solution(int[] A) {
+
+        int N = A.length;
+        Map<Integer, Integer> distinctElements = new HashMap<>();
+        for (int i = 0; i < N; i++) {
+            if (distinctElements.containsKey(A[i])) {
+                distinctElements.put(A[i], distinctElements.get(A[i]) + 1);
+            } else {
+                distinctElements.put(A[i], 1);
+            }
+        }
+
+        Map<Integer, Integer> elementsNonDivisors = new HashMap<>();
+        for (int element : distinctElements.keySet()) {
+            int divisor = 1;
+            int divisorsCurrentSum = 0;
+            while (divisor <= Math.sqrt(element)) {
+                if (element % divisor == 0){
+                    if(distinctElements.containsKey(divisor)) {
+                        divisorsCurrentSum += distinctElements.get(divisor);
+                    }
+                    int secondDivisor = element/divisor;
+                    if (secondDivisor != divisor && distinctElements.containsKey(secondDivisor)) {
+                        divisorsCurrentSum += distinctElements.get(secondDivisor);
+                    }
+                }
+                ++divisor;
+            }
+            elementsNonDivisors.put(element, N-divisorsCurrentSum);
+        }
+
+        int[] noNonDivisors = new int[N];
+        for (int i = 0; i < N; ++i) {
+            noNonDivisors[i] = elementsNonDivisors.get(A[i]);
+        }
+        return noNonDivisors;
+    }
+}
