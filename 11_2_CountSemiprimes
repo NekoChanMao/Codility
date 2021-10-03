@@ -1,0 +1,69 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+
+public class Solution {
+
+    public int[] solution(int N, int[] P, int[] Q){
+        int[] result = new int[P.length]; // By default all elements are set to 0.
+        if(N < 4){
+            return result;
+        }
+        ArrayList<Integer> primeNumbers = givePrimeNumbers(N);
+        boolean [] semiPrimes = giveSemiPrimeNumbers(N, primeNumbers);
+
+        //Number of semi Primes up to the point
+        int[] noSemiPrimes = new int[N+1];
+        int currentSemiPrimes = 0;
+        for(int i = 0; i <= N; ++i){
+            if(semiPrimes[i]){
+                ++currentSemiPrimes;
+            }
+            noSemiPrimes[i] = currentSemiPrimes;
+        }
+
+        for(int i = 0; i < P.length; ++i){
+            result[i] = noSemiPrimes[Q[i]] - noSemiPrimes[P[i]-1];
+        }
+
+        return result;
+    }
+
+    // We use Sieve of Eratosthenes
+    private ArrayList<Integer> givePrimeNumbers(int N) {
+        boolean[] primeNumbers = new boolean[N+1];
+        Arrays.fill(primeNumbers, Boolean.TRUE);
+        primeNumbers[0] = primeNumbers[1] = Boolean.FALSE;
+        for (int i = 2; i*i <= N; ++i) {
+            if(primeNumbers[i]){
+                for (int k = i*i; k <= N; k+=i) {
+                    primeNumbers[k] = Boolean.FALSE;
+                }
+            }
+        }
+        ArrayList<Integer> primeNumbersList = new ArrayList<>();
+        for(int i = 0; i < primeNumbers.length; ++i){
+            if(primeNumbers[i]){
+                primeNumbersList.add(i);
+            }
+        }
+        return primeNumbersList;
+    }
+
+    private boolean [] giveSemiPrimeNumbers(int N, ArrayList<Integer> primeNumbers) {
+        boolean[] semiPrimes = new boolean [N+1];
+        Arrays.fill(semiPrimes, Boolean.FALSE);
+        for(int i1 = 0; i1 < primeNumbers.size(); ++i1){
+            if(primeNumbers.get(i1) * primeNumbers.get(i1) > N){
+                break;
+            }
+            for(int i2 = i1; i2 < primeNumbers.size(); ++i2){
+                long semiPrime = (long) primeNumbers.get(i1) * primeNumbers.get(i2);
+                if(semiPrime > N){
+                    break;
+                }
+                semiPrimes[(int)semiPrime] = Boolean.TRUE;
+            }
+        }
+        return semiPrimes;
+    }
+}
